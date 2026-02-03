@@ -53,12 +53,16 @@ This project is a web scraping tool that extracts event data from **BookMyShow**
 
    `git clone https://github.com/deepak-khatik1/pixie-tool`
 
-2. Install dependencies and start Frontend:
+2. Change directory to pixie-tool:
+
+   `cd pixie-tool`
+
+3. Install dependencies and start Frontend:
 
    `cd client && pnpm install`
    `pnpm start`
 
-3. Install dependencies and start Backend:
+4. Install dependencies and start Backend:
 
    `cd server && pnpm install`
    `pnpm start`
