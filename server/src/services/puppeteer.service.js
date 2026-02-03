@@ -21,8 +21,7 @@ const scrapeBookMyShow = async (city) => {
   await page.goto(url, { waitUntil: "networkidle2" });
 
   // Wait for the events to load
-  await page.waitForSelector(".sc-dv5ht7-0");
-  // await page.waitForSelector(eventContainerSelector);
+  await page.waitForSelector(eventContainerSelector);
 
   await delay(2000, 5000); // Random delay to mimic human behavior
 
@@ -39,40 +38,38 @@ const scrapeBookMyShow = async (city) => {
     });
   };
 
-  await waitForScrollToBottom();
+  await waitForScrollToBottom(); // Wait will fetch 64 events otherwise only 20
 
-  const events = await page.evaluate(() => {
-    const eventList = [];
-    // const eventCards = document.querySelectorAll(eventsCardSelector);
-    const eventCards = document.querySelectorAll(".sc-133848s-11.ctsexn.uPavs");
+  const events = await page.evaluate(
+    (eventsCardSelector, nameSelector, venueSelector, categorySelector) => {
+      const eventList = [];
+      const eventCards = document.querySelectorAll(eventsCardSelector);
 
-    eventCards.forEach((card) => {
-      // const eventName = card.querySelector(nameSelector)?.textContent.trim();
-      const eventName = card
-        .querySelector(".sc-7o7nez-0.elfplV")
-        ?.textContent.trim();
-      // const venue = card.querySelector(venueSelector)?.textContent.trim();
-      const venue = card
-        .querySelector(".sc-7o7nez-0.FnmcD")
-        ?.textContent.trim();
-      // const category = card.querySelector(categorySelector)?.textContent.trim();
-      const category = card
-        .querySelector(".sc-7o7nez-0.bsZIkT")
-        ?.textContent.trim();
-      const eventUrl = card.href;
-      const status = "Upcoming"; // all events are "Upcoming" by default
+      eventCards.forEach((card) => {
+        const eventName = card.querySelector(nameSelector)?.textContent.trim();
+        const venue = card.querySelector(venueSelector)?.textContent.trim();
+        const category = card
+          .querySelector(categorySelector)
+          ?.textContent.trim();
+        const eventUrl = card.href;
+        const status = "Upcoming"; // all events are "Upcoming" by default
 
-      eventList.push({
-        eventName,
-        venue,
-        category,
-        eventUrl,
-        status,
+        eventList.push({
+          eventName,
+          venue,
+          category,
+          eventUrl,
+          status,
+        });
       });
-    });
 
-    return eventList;
-  });
+      return eventList;
+    },
+    eventsCardSelector,
+    nameSelector,
+    venueSelector,
+    categorySelector,
+  );
 
   await delay(1000, 3000);
 
@@ -81,16 +78,12 @@ const scrapeBookMyShow = async (city) => {
     await eventPage.goto(event.eventUrl, { waitUntil: "domcontentloaded" });
 
     try {
-      // await eventPage.waitForSelector(dateSelector);
-      await eventPage.waitForSelector(".sc-7o7nez-0.djdFxA");
+      await eventPage.waitForSelector(dateSelector);
       await delay(2000, 5000);
 
-      const eventDate = await eventPage.evaluate(() => {
-        // return document.querySelector(dateSelector)?.textContent.trim();
-        return document
-          .querySelector(".sc-7o7nez-0.djdFxA")
-          ?.textContent.trim();
-      });
+      const eventDate = await eventPage.evaluate((dateSelector) => {
+        return document.querySelector(dateSelector)?.textContent.trim();
+      }, dateSelector);
 
       // console.log("Event Date for", event.eventName, ":", eventDate);
 
