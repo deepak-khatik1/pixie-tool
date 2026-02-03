@@ -1,7 +1,6 @@
 
 ---
 ## **Event Scraping Tool**
----
 
 ### *Note:
 Please wait for few minutes after clicking the **"Scrape Events for Selected City"** button.
@@ -60,9 +59,9 @@ This project is a web scraping tool that extracts event data from **BookMyShow**
 3. Install dependencies and start Frontend:
 
    `cd client && pnpm install`
-   `pnpm start`
+   `pnpm run dev`
 
-4. Install dependencies and start Backend:
+4. Install dependencies and start Backend (in another terminal):
 
    `cd server && pnpm install`
    `pnpm start`
