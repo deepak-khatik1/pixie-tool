@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "npx puppeteer browsers install chrome && node src/server.js"
   },
   "keywords": [],
   "author": "",
