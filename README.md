@@ -16,6 +16,7 @@ This project is a web scraping tool that extracts event data from **BookMyShow**
 ### **Key Features**
 
 - **Event Extraction**: Scrapes event details from BookMyShow.
+- **Deduplication**: Depulication strategy runs before every file download and also after each scrape.
 - **City Selection**: Supports cities like **Jaipur**, **Mumbai**, **Delhi**, **Chandigarh**, **Bengaluru**.
 - **Data Storage**: Stores events in **Excel File**.
 - **Automation**: Runs daily to keep event data up-to-date.
@@ -76,7 +77,7 @@ This project is a web scraping tool that extracts event data from **BookMyShow**
 
 - **Scrape Events for Selected City**: Scrapes the events for selected city and update them to a Excel File in the server.
   _( This **may take few minutes** due to lazy loading & visiting individual event pages to extract date. )_
-- **Download Latest Scrape File**: Sync and fetch the file from server and downloads on user's device.
+- **Download Latest Scrape File**: Sync (Deduplication & Expiry) and fetch the file from server and downloads on user's device.
 
 ---
 
