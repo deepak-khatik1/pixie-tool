@@ -23,8 +23,9 @@ export default function App() {
       toast.success(`Scraped events for ${selectedCity}`);
       setLoading(false);
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to scrape events");
+      console.error(error.response?.data?.message || error.message);
+      // toast.error("Failed to scrape events");
+      toast.error("Failed: Please update selectors in the backend");
     } finally {
       setLoading(false);
     }

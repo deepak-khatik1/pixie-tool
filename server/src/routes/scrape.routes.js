@@ -23,7 +23,7 @@ router.get("/:city", async (req, res) => {
     deduplicateEvents();
   } catch (error) {
     console.error("Error scraping events:", error);
-    // return res.status(500).json({ msg: "Error scraping events", error });
+    return res.status(500).json({ msg: "Error scraping events", error });
   }
 
   res.status(200).json({
